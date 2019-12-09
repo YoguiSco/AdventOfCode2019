@@ -1,5 +1,6 @@
 #### DAY THREE ####
 import itertools
+import numpy as np
 
 WIRE_ONE = 0
 WIRE_TWO = 1
@@ -86,12 +87,25 @@ for i in range(len(direction[WIRE_TWO])):
          break
 print("SEARCH result")
 result = []
+save_point = []
 list_result = set(segFirstWire).intersection(set(segSecondWire))
 for x,y in list_result:
     if((x!=0) and (y!=0)):
+        mon_tuple = (x,y)
+        save_point.append(mon_tuple)
         result.append(abs(x)+abs(y))
-    print result
+print("manhattan result")
 print min(result) 
+print("\n")
+resultFinal = []
+for i in range(len(save_point)):
+    resultFinal.append((segFirstWire.index(save_point[i]) + segSecondWire.index(save_point[i])))
+
+print(min(resultFinal))
+
+
+
+
 ####first result 
 #[399, 600, 1122, 1139, 596, 511, 404, 293]
 #293
