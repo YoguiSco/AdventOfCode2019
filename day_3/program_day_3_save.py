@@ -26,20 +26,19 @@ def readingInput():
 
 
 direction = readingInput()
-movingPoint = []
 segFirstWire = []
 segSecondWire = []
-movingPoint.append([[0],[0]])
-segFirstWire.append([0,0])
-segSecondWire.append([0,0])
-mon_tuple= ()
+mon_tuple= (0,0)
+segFirstWire.append(mon_tuple)
+segSecondWire.append(mon_tuple)
 indexX = 0         
 indexY = 0 
 for i in range(len(direction[WIRE_ONE])):
      if(direction[WIRE_ONE][i][0] == 'R'):
          for a in range(direction[WIRE_ONE][i][1]):
-              mon_tuple = (indexX + (a+1 ), indexY)
+              mon_tuple = (indexX + (a+1) , indexY)
               segFirstWire.append(mon_tuple)
+              #mon_tuple = mon_tuple+ segFirstWire[0]
          indexX = indexX + direction[WIRE_ONE][i][1]
      elif(direction[WIRE_ONE][i][0] == 'L'): 
          for a in range(direction[WIRE_ONE][i][1]):
@@ -48,7 +47,7 @@ for i in range(len(direction[WIRE_ONE])):
          indexX = indexX - direction[WIRE_ONE][i][1]
      elif(direction[WIRE_ONE][i][0] == 'U'):
          for a in range(direction[WIRE_ONE][i][1]):
-              mon_tuple = (indexX , indexY+(a+1)
+              mon_tuple = (indexX , indexY+(a+1))
               segFirstWire.append(mon_tuple)
          indexY = indexY + direction[WIRE_ONE][i][1]
      elif(direction[WIRE_ONE][i][0] == 'D'): 
@@ -64,43 +63,35 @@ indexY = 0
 for i in range(len(direction[WIRE_TWO])):
      if(direction[WIRE_TWO][i][0] == 'R'):
          for a in range(direction[WIRE_TWO][i][1]):
-              segSecondWire.append([ indexX + (a+1) , indexY  ])
+              mon_tuple = (indexX + (a+1) , indexY)
+              segSecondWire.append(mon_tuple)
          indexX = indexX + direction[WIRE_TWO][i][1]
      elif(direction[WIRE_TWO][i][0] == 'L'):
          for a in range(direction[WIRE_TWO][i][1]):
-              segSecondWire.append([ indexX - (a+1) , indexY  ])
+              mon_tuple = (indexX - (a+1 ), indexY)
+              segSecondWire.append(mon_tuple)
          indexX = indexX - direction[WIRE_TWO][i][1]
-
      elif(direction[WIRE_TWO][i][0] == 'U'):
          for a in range(direction[WIRE_TWO][i][1]):
-              segSecondWire.append([ indexX , indexY + (a+1) ])
+              mon_tuple = (indexX , indexY+(a+1))
+              segSecondWire.append(mon_tuple)
          indexY = indexY + direction[WIRE_TWO][i][1]
      elif(direction[WIRE_TWO][i][0] == 'D'):
          for a in range(direction[WIRE_TWO][i][1]):
-              segSecondWire.append([ indexX , indexY - (a+1) ])
+              mon_tuple = (indexX , indexY-(a+1))
+              segSecondWire.append(mon_tuple)
          indexY = indexY - direction[WIRE_TWO][i][1]
      else:
          print("NO MORE DIRECTION")
          break
 print("SEARCH result")
 result = []
-#print str(len(segFirstWire))
-#for x in range(len(segFirstWire)):
-#    print x
-#    if( ( segFirstWire[x][0] != 0 ) and ( segFirstWire[x][1] != 0 )):
-#        if segFirstWire[x] in segSecondWire:
-#            print "yes"
-#            print segFirstWire[x]
-#            result.append(abs(segFirstWire[x][0]) + abs(segFirstWire[x][1]))
-
-print segFirstWire 
-print str(set(segFirstWire))
-
-
-
-print result
-print min(result)
-
+list_result = set(segFirstWire).intersection(set(segSecondWire))
+for x,y in list_result:
+    if((x!=0) and (y!=0)):
+        result.append(abs(x)+abs(y))
+    print result
+print min(result) 
 ####first result 
 #[399, 600, 1122, 1139, 596, 511, 404, 293]
 #293
